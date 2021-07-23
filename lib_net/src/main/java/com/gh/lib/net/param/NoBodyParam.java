@@ -13,7 +13,6 @@ import rxhttp.wrapper.entity.KeyValuePair;
 import rxhttp.wrapper.param.AbstractParam;
 import rxhttp.wrapper.param.Method;
 import rxhttp.wrapper.utils.BuildUtil;
-import rxhttp.wrapper.utils.CacheUtil;
 
 /**
  * Get、Head没有body的请求调用此类
@@ -33,10 +32,10 @@ public class NoBodyParam extends AbstractParam<NoBodyParam> {
         super(url, method);
     }
 
-    @Override
+   /* @Override
     public final String getUrl() {
         return getHttpUrl().toString();
-    }
+    }*/
 
     @Override
     public HttpUrl getHttpUrl() {
@@ -119,13 +118,13 @@ public class NoBodyParam extends AbstractParam<NoBodyParam> {
         return null;
     }
 
-    @Override
+    /*@Override
     public String getCacheKey() {
         String cacheKey = super.getCacheKey();
         if (cacheKey != null) return cacheKey;
         List<KeyValuePair> keyValuePairs = CacheUtil.excludeCacheKey(mKeyValuePairs);
         return BuildUtil.getHttpUrl(getSimpleUrl(), keyValuePairs).toString();
-    }
+    }*/
 
     public List<KeyValuePair> getKeyValuePairs() {
         return mKeyValuePairs;

@@ -1,10 +1,9 @@
 package com.gh.lib.net
 
 import com.gh.lib.net.interfaces.ProgressResult
-import com.wcy.app.lib.network.HttpType
+
 
 class HttpBuilder(url: String) {
-
 
     var domainUrl: String? = null//是否使用默认地址，如果不使用默认地址则使用第二默认地址
     var timeout: Long = 6 //动态设置连接超时时间 必须大于0 ，如果小于0则使用默认超时时间

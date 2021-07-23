@@ -26,17 +26,17 @@ class HttpConfig {
          * @param isdebug 是否dubug模式 dubug模式下会输入日志
          */
         fun init(url: String?, timeout: Long, retry: Int, isdebug: Boolean) {
-            baseUrl = url
-            mTimeout = timeout
-            mRetry = retry
-            if (timeout > 0) {
+            if (!RxHttpPlugins.isInit()) {
+                baseUrl = url
+                mTimeout = timeout
+                mRetry = retry
                 try {
-                    RxHttp.init(getDefaultOkHttpClient(timeout), isdebug)
+                    RxHttpPlugins.init(getDefaultOkHttpClient(timeout)).setDebug(isdebug)
                 } catch (e: IllegalArgumentException) {
+                    e.printStackTrace()
                 }
-            } else {
-                RxHttp.setDebug(isdebug)
             }
+
         }
 
         fun init(url: String?, isdebug: Boolean) {
@@ -129,12 +129,12 @@ class HttpConfig {
         private fun getDefaultOkHttpClient(timeout: Long): OkHttpClient {
             val sslParams = HttpsUtils.getSslSocketFactory()
             return OkHttpClient.Builder()
-                    .connectTimeout(timeout, TimeUnit.SECONDS)
-                    .readTimeout(timeout, TimeUnit.SECONDS)
-                    .writeTimeout(timeout, TimeUnit.SECONDS)
-                    .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager) //添加信任证书
-                    .hostnameVerifier(HostnameVerifier { hostname: String?, session: SSLSession? -> true }) //忽略host验证
-                    .build()
+                .connectTimeout(timeout, TimeUnit.SECONDS)
+                .readTimeout(timeout, TimeUnit.SECONDS)
+                .writeTimeout(timeout, TimeUnit.SECONDS)
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager) //添加信任证书
+                .hostnameVerifier(HostnameVerifier { hostname: String?, session: SSLSession? -> true }) //忽略host验证
+                .build()
         }
 
         /**

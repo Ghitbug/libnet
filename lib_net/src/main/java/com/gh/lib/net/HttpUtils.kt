@@ -4,12 +4,11 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.rxLifeScope
-import com.gh.lib.net.HttpBuilder
-import com.gh.lib.net.HttpConfig
-import com.rxlife.coroutine.RxLifeScope
 import com.gh.lib.net.exception.ApiException
 import com.gh.lib.net.interfaces.DownLoadResult
 import com.gh.lib.net.interfaces.NetWorkResult
+import com.rxlife.coroutine.RxLifeScope
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,7 +22,7 @@ import java.io.File
 open class HttpUtils {
     companion object {
         var map = mutableMapOf<String, Job>()
-        var TAG = "HttpSend"
+        var TAG = "HttpUtils"
 
         /**
          * 初始化http请求
@@ -91,7 +90,7 @@ open class HttpUtils {
                 //动态设置超时时间
                 if (builder.timeout > 0) iwat.timeout(builder.timeout)
                 if (builder.retry > 0) {
-                    iwat.retry(builder.retry) {
+                    iwat.retry(builder.retry.toLong()) {
                         it is TimeoutCancellationException
                     }
                 }

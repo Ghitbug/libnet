@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+//使用kapt依赖rxhttp-compiler时必须
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -45,6 +47,7 @@ dependencies {
     compileOnly rootProject.depsLibs.appcompat
     implementation rootProject.depsLibs.rxhttp
     implementation rootProject.depsLibs.okhttp
+    //kapt 'com.github.liujingxing.rxhttp:rxhttp-compiler:2.6.5' //生成RxHttp类，纯Java项目，请使用annotationProcessor代替kapt
     implementation rootProject.depsLibs.rxlifexCoroutine
 
     compileOnly rootProject.depsLibs.rxjava

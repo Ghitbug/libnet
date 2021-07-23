@@ -7,4 +7,5 @@ enum class HttpType(var ecode: String) {
     PUT("PUT"),
     PATCH("PATCH"),
     BODY("BODY"),
+    TEXT("TEXT"),
 }
